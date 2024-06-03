@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Collector Form</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Inside your HTML file -->
+<div class="profile-pic">
+    <img id="profile-preview" src="/images/default-profile-pic.jpg" alt="Profile Picture">
+    <input type="file" id="profile-pic-input" accept="image/*" onchange="previewProfilePic(event)">
+</div>
+
+<form action="/" method="post">
+    <!-- Your existing form inputs -->
+</form>
+
+    <div class="container">
+        <h1>Info Collector Form</h1>
+        <form action="/" method="post" enctype="multipart/form-data">
+            <input type="text" placeholder="Name" name="name" required>
+            <input type="email" placeholder="Email" name="email" required>
+            <input type="text" placeholder="Phone" name="phone" required>
+            <div class="gender-select">
+                <select name="gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <input type="file" name="profilePic" accept="image/*">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = this.href;
+                document.body.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500);
+            });
+        });
+
+        function previewProfilePic(event) {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function(){
+              var dataURL = reader.result;
+              var profilePic = document.getElementById('profile-preview');
+              profilePic.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    </script>
+</body>
+</html>

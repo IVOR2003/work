@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <form action="/updateData" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="<%= test[0].id %>">
+            <input type="text" placeholder="Name" name="name" value="<%= test[0].UserName %>">
+            <input type="text" placeholder="Email" name="email" value="<%= test[0].Email %>" autocomplete="off">
+            <input type="text" placeholder="Phone" name="phone" value="<%= test[0].Phone %>" autocomplete="off">
+            <div class="gender-select">
+                <select name="gender">
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male" <% if(test[0].Gender === 'Male') { %> selected <% } %>>Male</option>
+                    <option value="Female" <% if(test[0].Gender === 'Female') { %> selected <% } %>>Female</option>
+                    <!-- Add more options if needed -->
+                </select>
+            </div>
+            
+            <input type="file" name="profilePic" accept="image/*">
+            <input type="submit" placeholder="Submit">
+        </form>
+    </div>
+    <script>
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = this.href;
+                document.body.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>

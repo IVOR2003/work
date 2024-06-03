@@ -1,0 +1,150 @@
+/* General styles */
+body {
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url('/images/img.jpg'); /* Reference the image directly from the public folder */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Container for the form and table */
+.container {
+  width: 80%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUpFadeIn 1s forwards;
+}
+
+/* Slide-up and fade-in animation */
+@keyframes slideUpFadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="file"],
+form input[type="radio"] {
+  width: 45%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form input[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  animation: fadeIn 1s forwards;
+  border-radius: 10px; /* Add border radius to table */
+  overflow: hidden; /* Hide overflowing content */
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Add bottom border to table cells */
+}
+
+th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+/* Link styling */
+a {
+  color: #4CAF50;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #3e8e41;
+}
+
+/* Header styling */
+h1 {
+  text-align: center;
+  animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* Image styling */
+img {
+  max-width: 50px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Gender selection dropdown styling */
+.gender-select select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  background-color: #fff;
+  appearance: none; /* Remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M15.857 6.28a1 1 0 0 0-1.414 0L10 10.95 5.557 6.28a1 1 0 1 0-1.414 1.44l5.714 5.95a1 1 0 0 0 1.428 0l5.714-5.95a1 1 0 0 0 .004-1.44z"/></svg>'); /* Add custom arrow */
+  background-size: 12px;
+  background-position: calc(100% - 10px) center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+/* Hide the file input */
+#profile-pic-input {
+  display: none;
+}

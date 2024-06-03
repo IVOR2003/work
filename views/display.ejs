@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Information</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Submitted Information</h1>
+    <div class="container">
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Gender</th>
+                <th>Profile Pic</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+            <% if (test.length > 0) { %>
+                <% test.forEach(function(user) { %>
+                    <tr>
+                        <td><%- user.id %></td>
+                        <td><%- user.UserName %></td>
+                        <td><%- user.Email %></td>
+                        <td><%- user.Phone %></td>
+                        <td><%- user.Gender %></td>
+                        <td>
+                            <% if (user.ProfilePic) { %>
+                                <img src="/uploads/<%- user.ProfilePic %>" alt="Profile Pic" width="50" height="50">
+                            <% } %>
+                        </td>
+                        <td><a href="/update?id=<%- user.id %>">UPDATE</a></td>
+                        <td><a href="/delete?id=<%- user.id %>">DELETE</a></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr><td colspan="8">No Data Found!</td></tr>
+            <% } %>
+        </table>
+        <p><a href="/">Back to Form</a></p>
+    </div>
+    <script>
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function (e) {
+                e.preventDefault();
+                const url = this.href;
+                document.body.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
