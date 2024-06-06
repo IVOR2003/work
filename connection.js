@@ -5,11 +5,12 @@ var con = mysql.createConnection({
     host: process.env.HOST,
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: process.env.DATABASE
+    database: process.env.DATABASE,
+    port: process.env.PORT
 });
 
-con.connect(function(err) {
-    if (err) throw err;
+con.connect(function(err){
+    if(err) throw err;
     console.log("Database connected Successfully.");
 });
 
