@@ -3,11 +3,11 @@ require('dotenv').config();
 const app = express();
 const path = require('path');
 const multer = require('multer');
-const pool = require("./connection");
-const bodyParser = require("body-parser");
+const pool = require('./connection');
+const bodyParser = require('body-parser');
 const fs = require('fs');
 
-// Create uploads directory if it doesn't exist
+// Ensure the uploads directory exists
 const uploadsDir = path.join(__dirname, 'public', 'uploads');
 if (!fs.existsSync(uploadsDir)){
     fs.mkdirSync(uploadsDir, { recursive: true });
@@ -16,7 +16,7 @@ if (!fs.existsSync(uploadsDir)){
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // Set up multer for file uploads
 const storage = multer.diskStorage({
@@ -30,14 +30,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.listen(5000, function() {
-    console.log("Server is up and running");
+    console.log('Server is up and running');
 });
 
-app.get("/", function(req, res) {
-    res.render("form");
+app.get('/', function(req, res) {
+    res.render('form');
 });
 
-app.post("/", upload.single('profilePic'), function(req, res) {
+app.post('/', upload.single('profilePic'), function(req, res) {
     const { name, email, phone, gender } = req.body;
     const profilePic = req.file ? req.file.filename : null;
 
@@ -46,23 +46,23 @@ app.post("/", upload.single('profilePic'), function(req, res) {
 
     pool.query(sql, [values], function(err, result) {
         if (err) throw err;
-        console.log("Data Uploaded.");
+        console.log('Data Uploaded.');
         res.redirect('/submitted');
     });
 });
 
-app.get("/submitted", function(req, res) {
+app.get('/submitted', function(req, res) {
     const sql = 'SELECT * FROM test';
 
     pool.query(sql, function(error, results) {
         if (error) throw error;
-        res.render("display", { test: results });
+        res.render('display', { test: results });
     });
 });
 
-app.get("/update", function(req, res) {
+app.get('/update', function(req, res) {
     const { id } = req.query;
-    const sql = "SELECT * FROM test WHERE id = ?";
+    const sql = 'SELECT * FROM test WHERE id = ?';
 
     pool.query(sql, [id], function(error, result) {
         if (error) throw error;
@@ -70,24 +70,24 @@ app.get("/update", function(req, res) {
     });
 });
 
-app.post("/updateData", upload.single('profilePic'), function(req, res) {
+app.post('/updateData', upload.single('profilePic'), function(req, res) {
     const { name, email, phone, gender, id, existingProfilePic } = req.body;
     const profilePic = req.file ? req.file.filename : existingProfilePic;
 
-    const sql = "UPDATE test SET UserName = ?, Email = ?, Phone = ?, Gender = ?, ProfilePic = ? WHERE id = ?";
+    const sql = 'UPDATE test SET UserName = ?, Email = ?, Phone = ?, Gender = ?, ProfilePic = ? WHERE id = ?';
     pool.query(sql, [name, email, phone, gender, profilePic, id], function(error, result) {
         if (error) throw error;
-        console.log("Data updated.");
-        res.redirect("/submitted");
+        console.log('Data updated.');
+        res.redirect('/submitted');
     });
 });
 
-app.get("/delete", function(req, res) {
+app.get('/delete', function(req, res) {
     const { id } = req.query;
-    const sql = "DELETE FROM test WHERE id = ?";
+    const sql = 'DELETE FROM test WHERE id = ?';
 
     pool.query(sql, [id], function(error, result) {
         if (error) throw error;
-        res.redirect("/submitted");
+        res.redirect('/submitted');
     });
 });
