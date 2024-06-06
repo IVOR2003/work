@@ -1,0 +1,4 @@
+touch .npmrc
+git add .npmrc
+git commit -m "Add empty .npmrc file"
+git push origin main
