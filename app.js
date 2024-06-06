@@ -7,7 +7,7 @@ const con = require("./connection");
 const bodyParser = require("body-parser");
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
@@ -22,15 +22,15 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.listen(5000, function(){
+app.listen(process.env.PORT || 5000, function () {
     console.log("Server is up and running");
 });
 
-app.get("/", function(req, res){
+app.get("/", function (req, res) {
     res.render("form");
 });
 
-app.post("/", upload.single('profilePic'), function(req, res){
+app.post("/", upload.single('profilePic'), function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
     var phone = req.body.phone;
@@ -42,33 +42,33 @@ app.post("/", upload.single('profilePic'), function(req, res){
     var sql = 'INSERT INTO test (UserName, Email, Phone, Gender, ProfilePic) VALUES ?';
     var values = [[name, email, phone, gender, profilePic]];
 
-    con.query(sql, [values], function(err, result) {
+    con.query(sql, [values], function (err, result) {
         if (err) throw err;
         console.log("Data Uploaded.");
         res.redirect('/submitted');
     });
 });
 
-app.get("/submitted", function(req, res){
+app.get("/submitted", function (req, res) {
     var sql = 'SELECT * FROM test';
 
-    con.query(sql, function(error, results){
+    con.query(sql, function (error, results) {
         if (error) throw error;
         res.render("display", { test: results });
     });
 });
 
-app.get("/update", function(req, res){
+app.get("/update", function (req, res) {
     var id = req.query.id;
     var sql = "SELECT * FROM test WHERE id = ?";
 
-    con.query(sql, [id], function(error, result){
+    con.query(sql, [id], function (error, result) {
         if (error) throw error;
         res.render('update', { test: result });
     });
 });
 
-app.post("/updateData", upload.single('profilePic'), function(req, res){
+app.post("/updateData", upload.single('profilePic'), function (req, res) {
     var name = req.body.name;
     var email = req.body.email;
     var phone = req.body.phone;
@@ -79,18 +79,18 @@ app.post("/updateData", upload.single('profilePic'), function(req, res){
     console.log(name, email, phone, gender, profilePic, id);
 
     var sql = "UPDATE test SET UserName = ?, Email = ?, Phone = ?, Gender = ?, ProfilePic = ? WHERE id = ?";
-    con.query(sql, [name, email, phone, gender, profilePic, id], function(error, result){
+    con.query(sql, [name, email, phone, gender, profilePic, id], function (error, result) {
         if (error) throw error;
         console.log("Data updated.");
         res.redirect("/submitted");
     });
 });
 
-app.get("/delete", function(req, res){
+app.get("/delete", function (req, res) {
     var id = req.query.id;
     var sql = "DELETE FROM test WHERE id = ?";
 
-    con.query(sql, [id], function(error, result){
+    con.query(sql, [id], function (error, result) {
         if (error) throw error;
         res.redirect("/submitted");
     });

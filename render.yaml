@@ -1,0 +1,16 @@
+services:
+- type: web
+  name: ivor3000
+  env: node
+  plan: free
+  buildCommand: 'npm install'
+  startCommand: 'node app.js'
+  envVars:
+    - key: HOST
+      value: your_remote_mysql_host
+    - key: USER
+      value: your_remote_mysql_username
+    - key: PASSWORD
+      value: your_remote_mysql_password
+    - key: DATABASE
+      value: your_remote_mysql_dbname
